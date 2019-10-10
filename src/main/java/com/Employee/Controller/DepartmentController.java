@@ -39,7 +39,7 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("getEmployeeBaseOnDept/{deptName}")
-	public Convertable getEmployeesBydept(@PathVariable String deptName) {
+	public List<EmployeeTo> getEmployeesBydept(@PathVariable String deptName) {
 		System.out.println("ENtered");
 		
 		//
@@ -75,17 +75,33 @@ public class DepartmentController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		url="http://employee-Service/convert/"+con.toString();
+		json=json.replaceAll("\\{", "(").replaceAll("\\}", ")");
+		url="http://employee-Service/convert/"+json;
 		System.out.println(url);
 		ResponseEntity<List<EmployeeTo>> employeeTo=template.exchange(url, HttpMethod.GET, object, new ParameterizedTypeReference<List<EmployeeTo>>() {});
-		//List<EmployeeTo> employeeTos= employeeTo.getBody();
-		return con;
+		List<EmployeeTo> employeeTos= employeeTo.getBody();
+		return employeeTos;
 	}
 	
 	@GetMapping("departmentById/{id}")
 	public List<Department> getDepartmentById(@PathVariable Integer id){
 		return getAllDepartment().stream().filter( dept-> dept.getId().equals(id)).collect(Collectors.toList());
 
+	}
+	
+	@GetMapping("showAddress")
+	public com.Employee.Model.Address showAddress() throws JsonProcessingException{
+		com.Employee.Model.Address ad=new com.Employee.Model.Address();
+		ad.setCityName("Bangalore");
+		ad.setStateName("Karnataka");
+		ad.setId(1001);
+		ObjectMapper ob=new ObjectMapper();
+		String n=ob.writeValueAsString(ad);
+		System.out.println(n);
+		n=n.replaceAll("\\{", "(").replaceAll("\\}", ")");
+		
+		System.out.println(n);
+		//return ad;
+		return template.getForObject("http://localhost:8881/show/"+n, com.Employee.Model.Address.class);
 	}
 }
