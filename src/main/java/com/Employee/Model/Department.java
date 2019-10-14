@@ -2,13 +2,13 @@ package com.Employee.Model;
 
 public class Department {
 	
-	private Integer id;
+	private String id;
 	private String deptName;
 	private String deptLocation;
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getDeptName() {
@@ -23,7 +23,7 @@ public class Department {
 	public void setDeptLocation(String deptLocation) {
 		this.deptLocation = deptLocation;
 	}
-	public Department(Integer id, String deptName, String deptLocation) {
+	public Department(String id, String deptName, String deptLocation) {
 		super();
 		this.id = id;
 		this.deptName = deptName;

@@ -20,6 +20,7 @@ import com.Employee.Model.Convertable;
 import com.Employee.Model.Department;
 import com.Employee.Model.Employee;
 import com.Employee.Model.EmployeeTo;
+import com.Employee.Repository.DepartmentRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,13 +30,14 @@ public class DepartmentController {
 	@Autowired
 	private RestTemplate template;
 	
+	@Autowired
+	private DepartmentRepository repository;
+	
 	@GetMapping("getAllDepartment")
 	public List<Department> getAllDepartment(){
-		return Arrays.asList(
-				new Department(11, "IT", "Bangalore"),
-				new Department(12, "Admin", "Bangalore"),
-				new Department(13, "HR", "Hyderbad")
-				);
+		List<Department> li=new ArrayList<Department>();
+		 li=(List<Department>)repository.findAll();
+		return li;
 	}
 	
 	@GetMapping("getEmployeeBaseOnDept/{deptName}")
@@ -47,7 +49,7 @@ public class DepartmentController {
 		List<Department> requiredDepts=new ArrayList<Department>();
 		
 		
-		Integer departmentid=0;
+		String departmentid="";
 		
 		requiredDepts=depts.stream().filter( dept-> dept.getDeptName().equalsIgnoreCase(deptName)).collect(Collectors.toList());
 		departmentid=depts.stream().filter( dept-> dept.getDeptName().equalsIgnoreCase(deptName)).map(dep->dep.getId()).findAny().get();

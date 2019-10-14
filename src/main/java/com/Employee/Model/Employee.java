@@ -2,14 +2,14 @@ package com.Employee.Model;
 
 public class Employee {
 	
-	private Integer id;
+	private String id;
 	private String name;
 	private Integer deptid;
 	private Integer addressid;
 	
 	
 	
-	public Employee(Integer id, String name, Integer deptid, Integer addressid) {
+	public Employee(String id, String name, Integer deptid, Integer addressid) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -21,10 +21,10 @@ public class Employee {
 		
 	}
 	
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {

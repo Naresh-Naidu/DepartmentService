@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
+import com.microsoft.azure.spring.data.cosmosdb.repository.config.EnableDocumentDbRepositories;
+
 @SpringBootApplication
 @ComponentScan("com.Employee")
 @EnableEurekaClient
+@EnableDocumentDbRepositories(basePackages = "com.Employee.Repository")
 public class DepartmentServiceApplication {
 
 	public static void main(String[] args) {
